@@ -43,9 +43,17 @@
 			page-break-inside: avoid;
 		}
 		*/
+		@media print {
+			#helper {
+				display: none;
+			}
+		}
 	</style>
 </head>
 <body>
+	<div id="helper">
+		<input type="button" name="print" onclick="window.print()" value="Print">
+	</div>
 	<div class="page">
 		<section>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean malesuada tincidunt ligula vitae dictum. Phasellus et tellus tortor. In luctus vel nisi eu scelerisque. Quisque eu congue velit. Aenean elementum elit fermentum bibendum rutrum. Pellentesque rhoncus iaculis lacus ultricies vestibulum. Proin sit amet lacus urna.</p>
