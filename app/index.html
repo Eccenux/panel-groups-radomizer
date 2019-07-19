@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Panel Groups Randomizer</title>
+    <title data-i18n-key="appName">Panel Groups Randomizer</title>
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script src="js/main.js" type="module"></script>
 </head>
 <body>
 	<!-- Settings form -->
 	<section id="settings" class="screen-only">
-		<h2>Settings form</h2>
-		<p><input type="button" name="print" onclick="window.print()" value="Print"></p>
+		<h2 data-i18n-key="settings.Settings_form">Settings</h2>
+		<p><input type="button" 
+			name="print" onclick="window.print()" 
+			value="Print" data-i18n-key-attribute="Print:value"
+		></p>
 	</section>
 	<!-- Results summary -->
 	<section id="results" class="screen-only">
-		<h2>Results summary</h2>
+		<h2 data-i18n-key="results.Results_summary">Results</h2>
 	</section>
 	<!-- Cards for users that can be printed -->
 	<div id="cards">
