@@ -1,0 +1,18 @@
+/* removing default browser margins (also removes headers/footers of pages like the name and link to the page) */
+@page {
+	size:  auto;
+	margin: 0mm;
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+@media print {
+	#settings,
+	#results {
+		display: none;
+	}
+}
