@@ -11,8 +11,104 @@ html, body {
 }
 
 @media print {
-	#settings,
-	#results {
+	.screen-only {
 		display: none;
+	}
+}
+
+/* base section */
+@media screen {
+	body > section {
+		padding: 1em;
+		border-bottom: 1px solid black;
+	}
+}
+
+/* fonts */
+body {
+	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+.page {
+	font-family: 'Times New Roman', Times, serif;
+}
+
+/**
+	Pages
+
+	There is a requirement to have two cards on one page.
+	So each card takes half of the screen.
+*/
+.page,
+.page section {
+	box-sizing: border-box;
+}
+
+/* division line */
+.page {
+	position: relative;
+}
+.page::before {
+	box-sizing: border-box;
+	display: block;
+	position: absolute;
+	border-bottom: 1px solid black;
+	content: " ";
+	width: 100%;
+	top: 50%;
+}
+
+/* remove default p margin for first element */
+.page section p:first-child {
+	margin-top: 0;
+	padding-top: 0;
+}
+
+/* page shadow emulation */
+@media screen {
+	.page {
+		margin: 1em;
+
+		border: 1px outset #999;
+		box-shadow:         5px 5px 5px #888;
+		-moz-box-shadow:    5px 5px 5px #888;
+		-webkit-box-shadow: 5px 5px 5px #888;
+	}
+}
+
+/* main print layout */
+@media print {
+	.page {
+		height: 100vh;
+		/* for whatever reason adding a border here removes the 2nd page on Firefox */
+		/* don't work for Chrome though... */
+		border: 1px solid grey;
+	}
+	.page::before {
+		/* 50vh block works better for positing border in print, especially for Firefox */
+		height: 50vh;
+		top: 0;
+	}
+	.page section {
+		/* height need to be reduced by margins: (1 + 2 + 1) / 2 = 2 */
+		height: calc(50vh - 2cm);
+		/* 1cm is our page margin */
+		/* min page margin is mentioned here: https://stackoverflow.com/a/3513476/333296 */
+		margin: 1cm;
+
+		/* border: 1px solid black; */
+	}
+	/* change margin to make top margin for both cards even */
+	.page section:first-child {
+		margin-bottom: 2cm;
+	}
+}
+
+/* similar margins for screen */
+@media screen {
+	.page section {
+		margin: 1cm;
+	}
+	.page section:first-child {
+		margin-bottom: 2cm;
 	}
 }
