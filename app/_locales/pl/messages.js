@@ -30,6 +30,6 @@ export default {
 		"message": "Liczba dyskusji"
 	},
 	"settings.Generate": {
-		"message": "Generate"
+		"message": "Generuj"
 	},
 }
