@@ -8,5 +8,8 @@ export default {
 	},
 	"settings.Settings_form": {
 		"message": "Ustawienia"
-	}
+	},
+	"results.Results_summary": {
+		"message": "Podsumowanie losowania"
+	},
 }

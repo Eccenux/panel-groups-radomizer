@@ -14,4 +14,7 @@ export default {
 	"settings.Settings_form": {
 		"message": "Settings",
 	},
+	"results.Results_summary": {
+		"message": "Results summary"
+	}
 }

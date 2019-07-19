@@ -6,21 +6,16 @@ let messages = {
 	'en' : messagesEn,
 };
 
-/*
-if (typeof window._i18nMessages !== 'object') {
-	window._i18nMessages = {
-		missing: {
-			pl: {},
-			en: {},
-		}
-	};
-}
-*/
-
 /**
  * Simple I18n functions.
  * 
  * Note! Run `setupHtml` when HTML is ready.
+ * 
+ * To get missing i18n use one of:
+ * ```
+ * copy(app.i18n.missing.pl)
+ * copy(app.i18n.missing.en)
+ * ```
  */
 class SimpleI18n {
 	constructor() {
@@ -44,14 +39,24 @@ class SimpleI18n {
 		this.reportMissing = true;
 
 		/**
-		 * Actually used messages.
+		 * Messages to be used (in user language).
 		 */
 		this.messages = {};
 
-		// pre-init
+		/**
+		 * Missing messages.
+		 */
+		this.missing = {};
+
+		// pre-init lang and messages
 		this.initLanguage();
 		if (this.lang in messages) {
 			this.messages = messages[this.lang];
+		}
+		// pre-init missing
+		for (let index = 0; index < this.supported.length; index++) {
+			const key = this.supported[index];
+			this.missing[key] = {};
 		}
 	}
 
@@ -101,7 +106,7 @@ class SimpleI18n {
 			el.setAttribute(attribute, content);
 		});
 	}
-	
+
 	/**
 	 * Get I18n string.
 	 */
@@ -123,26 +128,29 @@ class SimpleI18n {
 
 		// report missing
 		if (this.reportMissing) {
-			console.warn('TODO reportMissing');
+			this.reportMessage(messageName, message);
 		}
 
 		return message;
 	}
 
-	// //console.log('i18nhelper', messagesPl, messagesEn, wikiTemplateEngine);
-	// reportMessage(messageName, message) {
-	// 	let obj = {
-	// 		'message' : message
-	// 	};
-	// 	if (!(messageName in messagesPl)) {
-	// 		console.log('pl: ', messageName)
-	// 		_i18nMessages.missing.pl[messageName] = obj;
-	// 	}
-	// 	if (!(messageName in messagesEn)) {
-	// 		console.log('en: ', messageName)
-	// 		_i18nMessages.missing.en[messageName] = obj;
-	// 	}
-	// }	
+	/**
+	 * 
+	 * @param {String} messageName Name (key).
+	 * @param {String} message Default message or current translation.
+	 */
+	reportMessage(messageName, message) {
+		let obj = {
+			'message' : message
+		};
+		for (let index = 0; index < this.supported.length; index++) {
+			const lang = this.supported[index];
+			if (!(messageName in messages[lang])) {
+				console.warn(`missing ${lang}: `, messageName)
+				this.missing[lang][messageName] = obj;
+			}
+		}
+	}	
 }
 
 export { SimpleI18n };
