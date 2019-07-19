@@ -1,0 +1,13 @@
+.textarea-container label {
+	display: block;
+	padding-bottom: .5em;
+}
+.textarea-container textarea {
+	box-sizing: border-box;
+	width: 100%;
+}
+.input-container label span {
+	box-sizing: border-box;
+	width: 7em;
+	display: inline-block;
+}

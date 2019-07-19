@@ -7,17 +7,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/forms.css">
 	<script src="js/main.js" type="module"></script>
 </head>
 <body>
 	<!-- Settings form -->
 	<section id="settings" class="screen-only">
-		<h2 data-i18n-key="settings.Settings_form">Settings</h2>
+		<h2 data-i18n-key="settings.Settings_form">&nbsp;</h2>
+		<!-- info -->
+		<p class="textarea-container">
+			<label
+				for="settings_info" 
+				data-i18n-key="settings.opening_information"></label>
+			<textarea 
+				id="settings_info" 
+				name="opening_information" 
+				style="height: 10em"
+				data-i18n-key="settings.Default_info"></textarea>
+		</p>
+		<!-- number of people determins number of cards -->
+		<p class="input-container">
+			<label>
+				<span data-i18n-key="settings.total_count">&nbsp;</span>
+				<input type="number" name="total_count" value="30">
+			</label>
+		</p>
+		<!-- max people in group -->
+		<p class="input-container">
+			<label>
+				<span data-i18n-key="settings.group_max">&nbsp;</span>
+				<input type="number" name="group_max" value="4">
+			</label>
+		</p>
+		<!-- number of stages -->
+		<p class="input-container">
+			<label>
+				<span data-i18n-key="settings.stages_count">&nbsp;</span>
+				<input type="number" name="stages_count" value="6">
+			</label>
+		</p>
+
+		<p><input type="button" 
+			name="generate" 
+			value="&nbsp;" data-i18n-key-attribute="settings.Generate:value"
+		></p>
 	</section>
+
 	<!-- Results summary -->
 	<section id="results" class="screen-only">
 		<h2 data-i18n-key="results.Results_summary">Results</h2>
 	</section>
+
 	<!-- Cards for users that can be printed -->
 	<div id="cards">
 		<div class="buttons screen-only">
@@ -35,5 +75,6 @@
 			</section>
 		</div>
 	</div>
+	
 </body>
 </html>
