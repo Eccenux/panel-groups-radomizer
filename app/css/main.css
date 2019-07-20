@@ -16,6 +16,16 @@ html, body {
 	}
 }
 
+/* logo */
+@media screen {
+	body {
+		background: url(../logo/logo-plain.svg);
+		background-repeat: no-repeat;
+		background-size: 80px 80px;
+		background-position: top right;
+	}
+}
+
 /* base sections */
 @media screen {
 	body > section {
