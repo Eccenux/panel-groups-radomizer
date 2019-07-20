@@ -78,17 +78,17 @@ class GroupRandomizer {
 			let randomInt = getRandomInt(0, availableGroups.length-1);
 			let groupIndex = availableGroups[randomInt];
 			let group = this.groups[groupIndex];
+			// build relations
+			for (let index = 0; index < group.members.length; index++) {
+				const member = group.members[index];
+				this.peopleRelations[personIndex].push(member);	// me to them
+				this.peopleRelations[member].push(personIndex);	// them to me
+			}
+			// add to group
 			group.add(personIndex);
 			// remove full group
 			if (group.isFull()) {
 				availableGroups.splice(randomInt, 1);
-			}
-			// build relations
-			for (let index = 0; index < group.members.length; index++) {
-				const member = group.members[index];
-				if (member != personIndex) {
-					this.peopleRelations[personIndex].push(member);
-				}
 			}
 		}
 
@@ -118,10 +118,11 @@ class GroupRandomizer {
 	dumpRelations() {
 		let dump = [];
 		for (let index = 0; index < this.totalCount; index++) {
-			dump.push(this.peopleRelations[index].join(','));
+			let people = this.peopleRelations[index].join(',');
+			dump.push(`${index}:[${people}]`);
 		}
-		dump = dump.join('],[');
-		console.log(`Relations: [${dump}]`);
+		dump = dump.join('; ');
+		console.log(`Relations: ${dump}`);
 	}
 }
 
@@ -162,7 +163,7 @@ class Group {
 	 */
 	add(person) {
 		if (this.isFull()) {
-			console.warn('Trying to add member to already full group!');
+			console.warn('Trying to add a member to an already full group!');
 			return false;
 		}
 		this.count++;
