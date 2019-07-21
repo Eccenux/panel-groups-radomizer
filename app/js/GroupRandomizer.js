@@ -9,6 +9,8 @@
  */
 class GroupRandomizer {
 	constructor(totalCount, groupMax, stagesCount) {
+		this.enableStageDump = false;
+
 		/**
 		 * Number of people determins number of cards.
 		 */
@@ -44,11 +46,16 @@ class GroupRandomizer {
 	 * Run full group generation proccess.
 	 */
 	run() {
+		let t0 = performance.now();
 		this.draw();
 		for (let stageNumber = 2; stageNumber <= this.stagesCount; stageNumber++) {
 			this.drawByRelation();
 		}
-		this.results.dump();
+		if (this.enableStageDump) {
+			this.results.dump();
+		}
+		let t1 = performance.now();
+		console.log("whole randomization proccess took: " + (t1 - t0) + " milliseconds.");
 	}
 
 	/**
@@ -111,8 +118,10 @@ class GroupRandomizer {
 		let t1 = performance.now();
 		console.log("filling all groups randomly took " + (t1 - t0) + " milliseconds.");
 
-		this.dumpGroups();
-		this.dumpRelations();
+		if (this.enableStageDump) {
+			this.dumpGroups();
+			this.dumpRelations();
+		}
 		this.saveStage();
 	}
 
@@ -189,8 +198,10 @@ class GroupRandomizer {
 		let t1 = performance.now();
 		console.log("filling all groups by relation took " + (t1 - t0) + " milliseconds.");
 
-		this.dumpGroups();
-		this.dumpRelations();
+		if (this.enableStageDump) {
+			this.dumpGroups();
+			this.dumpRelations();
+		}
 		this.saveStage();
 	}
 
@@ -251,7 +262,7 @@ class GroupRandomizer {
 	 */
 	saveStage() {
 		this.results.addStage(this.groups);
-		this.results.dump();
+		//this.results.dump();
 	}
 
 	/**
