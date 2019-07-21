@@ -41,14 +41,16 @@
 		<p class="input-container">
 			<label>
 				<span data-i18n-key="settings.group_max">&nbsp;</span>
-				<input type="number" name="group_max" value="4" min="2" max="1000" style="width: 4em">
+				<!-- Note! With groups over 20 people randomization might take more then 10 seconds -->
+				<input type="number" name="group_max" value="4" min="2" max="20" style="width: 4em">
 			</label>
 		</p>
 		<!-- number of stages -->
 		<p class="input-container">
 			<label>
 				<span data-i18n-key="settings.stages_count">&nbsp;</span>
-				<input type="number" name="stages_count" value="6" min="1" max="1000" style="width: 4em">
+				<!-- Note! Too many phases will cause both performance and visualisation problems -->
+				<input type="number" name="stages_count" value="6" min="1" max="10" style="width: 4em">
 			</label>
 		</p>
 
