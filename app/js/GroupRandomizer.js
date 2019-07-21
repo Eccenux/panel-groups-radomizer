@@ -27,9 +27,9 @@ class GroupRandomizer {
 		this.stagesCount = stagesCount;
 
 		/**
-		 * Saved stages.
+		 * Saved results.
 		 */
-		this.stages = [];
+		this.results = new Results(this.totalCount);
 
 		/**
 		 * Groups count.
@@ -38,6 +38,17 @@ class GroupRandomizer {
 
 		// pre-init
 		this.init();
+	}
+
+	/**
+	 * Run full group generation proccess.
+	 */
+	run() {
+		this.draw();
+		for (let stageNumber = 2; stageNumber <= this.stagesCount; stageNumber++) {
+			this.drawByRelation();
+		}
+		this.results.dump();
 	}
 
 	/**
@@ -239,9 +250,8 @@ class GroupRandomizer {
 	 * Save stage results.
 	 */
 	saveStage() {
-		let stage = new Stage(this.groups, this.totalCount);
-		this.stages.push(stage);
-		stage.dump();
+		this.results.addStage(this.groups);
+		this.results.dump();
 	}
 
 	/**
@@ -323,13 +333,22 @@ class Group {
 }
 
 /**
- * Saved stage results.
+ * Saved results.
  */
-class Stage {
-	constructor(groups, totalCount) {
+class Results {
+	constructor(totalCount) {
 		this.memberGroups = [];
-		this.memberGroups.length = totalCount;
-		//this.memberGroups.fill([]);
+		for (let index = 0; index < totalCount; index++) {
+			this.memberGroups[index] = [];
+			
+		}
+	}
+
+	/**
+	 * Add stage results.
+	 * @param {Array} groups 
+	 */
+	addStage(groups) {
 		for (let index = 0; index < groups.length; index++) {
 			const group = groups[index];
 			this.add(group);
@@ -343,18 +362,18 @@ class Stage {
 	add(group) {
 		for (let index = 0; index < group.members.length; index++) {
 			const personIndex = group.members[index];
-			this.memberGroups[personIndex] = group.number;
+			this.memberGroups[personIndex].push(group.number);
 		}
 	}
 
 	dump() {
 		let dump = [];
 		for (let index = 0; index < this.memberGroups.length; index++) {
-			let item = this.memberGroups[index];
+			let item = this.memberGroups[index].join(',');
 			dump.push(`${index}:${item}`);
 		}
-		dump = dump.join('; ');
-		console.log(`Stage: ${dump}`);
+		dump = dump.join('\n');
+		console.log(`Stages:\n${dump}`);
 	}
 }
 
