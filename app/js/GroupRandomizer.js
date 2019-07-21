@@ -27,6 +27,11 @@ class GroupRandomizer {
 		this.stagesCount = stagesCount;
 
 		/**
+		 * Saved stages.
+		 */
+		this.stages = [];
+
+		/**
 		 * Groups count.
 		 */
 		this.groupCount = Math.ceil(totalCount/groupMax);
@@ -97,6 +102,7 @@ class GroupRandomizer {
 
 		this.dumpGroups();
 		this.dumpRelations();
+		this.saveStage();
 	}
 
 	/**
@@ -174,6 +180,7 @@ class GroupRandomizer {
 
 		this.dumpGroups();
 		this.dumpRelations();
+		this.saveStage();
 	}
 
 	/**
@@ -226,6 +233,15 @@ class GroupRandomizer {
 		}
 
 		return bestStats;
+	}
+
+	/**
+	 * Save stage results.
+	 */
+	saveStage() {
+		let stage = new Stage(this.groups, this.totalCount);
+		this.stages.push(stage);
+		stage.dump();
 	}
 
 	/**
@@ -303,6 +319,42 @@ class Group {
 	reset() {
 		this.members = [];
 		this.count = 0;
+	}
+}
+
+/**
+ * Saved stage results.
+ */
+class Stage {
+	constructor(groups, totalCount) {
+		this.memberGroups = [];
+		this.memberGroups.length = totalCount;
+		//this.memberGroups.fill([]);
+		for (let index = 0; index < groups.length; index++) {
+			const group = groups[index];
+			this.add(group);
+		}
+	}
+
+	/**
+	 * Add group.
+	 * @param {Group} group 
+	 */
+	add(group) {
+		for (let index = 0; index < group.members.length; index++) {
+			const personIndex = group.members[index];
+			this.memberGroups[personIndex] = group.number;
+		}
+	}
+
+	dump() {
+		let dump = [];
+		for (let index = 0; index < this.memberGroups.length; index++) {
+			let item = this.memberGroups[index];
+			dump.push(`${index}:${item}`);
+		}
+		dump = dump.join('; ');
+		console.log(`Stage: ${dump}`);
 	}
 }
 
