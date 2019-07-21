@@ -4,6 +4,7 @@
 import {SimpleI18n} from './SimpleI18n.js';
 import {GroupRandomizer} from './GroupRandomizer.js';
 import {AppViewModel} from './AppViewModel.js';
+import BindingHandlersI18n from './BindingHandlers/I18n.js';
 
 // for exposing API/objects
 window.app = {};
@@ -18,6 +19,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // setup GR
 app.GroupRandomizer = GroupRandomizer;
+
+//
+// Knockout
+//
+
+// binding handlers
+ko.bindingHandlers.i18n = new BindingHandlersI18n();
 
 // view model(s)
 app.viewModel = new AppViewModel();

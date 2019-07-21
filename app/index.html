@@ -78,23 +78,15 @@
 				<table>
 					<tr>
 						<th></th>
-						<th class="discussion-header" data-i18n-key="results.discussion"></th>
-						<th class="discussion-header" data-i18n-key="results.discussion"></th>
-						<th class="discussion-header" data-i18n-key="results.discussion"></th>
-
-						<th class="discussion-header" data-i18n-key="results.discussion"></th>
-						<th class="discussion-header" data-i18n-key="results.discussion"></th>
-						<th class="discussion-header" data-i18n-key="results.discussion"></th>
+						<!-- ko foreach: new Array($parent.stagesCount) -->
+						<th class="discussion-header" data-bind="i18n: 'results.discussion'"></th>
+						<!-- /ko -->
 					</tr>
 					<tr>
-						<th data-i18n-key="results.group_number"></th>
+						<th data-bind="i18n: 'results.group_number'"></th>
+						<!-- ko foreach: new Array($parent.stagesCount) -->
 						<td>123</td>
-						<td>123</td>
-						<td>123</td>
-
-						<td>123</td>
-						<td>123</td>
-						<td>123</td>
+						<!-- /ko -->
 					</tr>
 				</table>
 			</section>
