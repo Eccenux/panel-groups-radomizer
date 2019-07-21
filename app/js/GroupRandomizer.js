@@ -100,6 +100,135 @@ class GroupRandomizer {
 	}
 
 	/**
+	 * Draw groups by using relations to maximize relations.
+	 * 
+	 * 1st person can be either random or just 1st from the list.
+	 * 2nd person can be anyone with least relations with the 1st.
+	 * 3rd person can be anyone with least relations with the 1st and 2nd.
+	 * etc...
+	 */
+	drawByRelation() {
+		// reset groups
+		for (let index = 0; index < this.groupCount; index++) {
+			this.groups[index].reset();
+		}
+		// indexes for available people (not already choosen)
+		let availablePeople = [];
+		for (let index = 0; index < this.totalCount; index++) {
+			availablePeople.push(index);
+		}
+
+		let t0 = performance.now();
+
+		// choose 1st person randomly (to make things less obvious)
+		let personIndex = getRandomInt(0, this.totalCount-1);
+		// itterate over groups adding members
+		for (let groupIndex = 0; groupIndex < this.groupCount;) {
+			let group = this.groups[groupIndex];
+
+			// build relations
+			for (let index = 0; index < group.members.length; index++) {
+				const member = group.members[index];
+				this.peopleRelations[personIndex].push(member);	// me to them
+				this.peopleRelations[member].push(personIndex);	// them to me
+			}
+
+			// add to group
+			group.add(personIndex);
+			// next group if full
+			if (group.isFull()) {
+				groupIndex++;
+			}
+
+			// remove choosen person
+			let availablePeopleIndex = availablePeople.indexOf(personIndex);
+			if (availablePeopleIndex < 0) {
+				console.error(`choosen person (${personIndex}) was not found in available`);
+				debugger;
+			} else {
+				availablePeople.splice(availablePeopleIndex, 1);
+			}
+
+			// break if no one is left
+			if (availablePeople.length === 0) {
+				break;
+			}
+
+			// choose next person with least relations with current members and with least relations
+			let bestStats = this.calculateBestCandidates(availablePeople, group);
+			// choose random from best
+			let randomInt = getRandomInt(0, bestStats.length-1);
+			personIndex = bestStats[randomInt].personIndex;
+			if (availablePeople.indexOf(personIndex) < 0) {
+				console.error(`choosen person (${personIndex}) is not available`);
+				debugger;
+			}
+			if (group.members.indexOf(personIndex) >= 0) {
+				console.error(`choosen person (${personIndex}) is already int the group`);
+				debugger;
+			}
+		}
+
+		let t1 = performance.now();
+		console.log("filling all groups by relation took " + (t1 - t0) + " milliseconds.");
+
+		this.dumpGroups();
+		this.dumpRelations();
+	}
+
+	/**
+	 * Calculate stats for best candidates to the group.
+	 * 
+	 * choose next person with least relations with current members and with least relations.
+	 * 
+	 * @param {Array} availablePeople List of indexes of available people.
+	 * @param {Group} group The group to take into account.
+	 */
+	calculateBestCandidates(availablePeople, group) {
+		let bestStats = [];
+		let minRelations = {
+			relationsCount: Infinity,
+			memberRelations: Infinity,
+		}
+		for (let index = 0; index < availablePeople.length; index++) {
+			const personIndex = availablePeople[index];
+			const relations = this.peopleRelations[personIndex];
+			// count relations with members
+			let memberRelations = 0;
+			for (let index = 0; index < group.members.length; index++) {
+				const member = group.members[index];
+				if (relations.indexOf(member) >= 0) {
+					memberRelations++;
+				}
+			}
+			let personStats = {
+				personIndex: personIndex,
+				relationsCount: relations.length,	// smallest is best
+				memberRelations: memberRelations,	// smallest is best
+			};
+
+			// reset stats if we just got a better candidate
+			// (note that memberRelations are more important then relationsCount)
+			if (
+				(minRelations.memberRelations > personStats.memberRelations)
+				|| 
+				(minRelations.memberRelations == personStats.memberRelations
+					&& minRelations.relationsCount > personStats.relationsCount)
+				) {
+				bestStats = [];
+				bestStats.push(personStats);
+				minRelations.memberRelations = personStats.memberRelations;
+				minRelations.relationsCount = personStats.relationsCount;
+			} else if (minRelations.memberRelations == personStats.memberRelations
+				&& minRelations.relationsCount == personStats.relationsCount) {
+				bestStats.push(personStats);
+			}
+		}
+
+		return bestStats;
+	}
+
+	/**
 	 * Dump groups (for debugging mostly).
 	 */
 	dumpGroups() {
