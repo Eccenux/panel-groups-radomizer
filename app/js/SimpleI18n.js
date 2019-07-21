@@ -13,8 +13,9 @@ let messages = {
  * 
  * To get missing i18n use one of:
  * ```
- * copy(app.i18n.missing.pl)
- * copy(app.i18n.missing.en)
+ * copy(app.i18n.dumpMissing())
+ * copy(app.i18n.dumpMissing('pl'))
+ * copy(app.i18n.dumpMissing('en'))
  * ```
  */
 class SimpleI18n {
@@ -150,7 +151,18 @@ class SimpleI18n {
 				this.missing[lang][messageName] = obj;
 			}
 		}
-	}	
+	}
+
+	/**
+	 * Dump missing trans.
+	 * @param {String?} lang 
+	 */
+	dumpMissing(lang) {
+		if (typeof lang !== 'string') {
+			lang = 'pl';
+		}
+		return JSON.stringify(app.i18n.missing[lang], null, '\t');
+	}
 }
 
 export { SimpleI18n };
