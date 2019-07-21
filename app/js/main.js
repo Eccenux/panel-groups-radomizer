@@ -3,6 +3,7 @@
  */
 import {SimpleI18n} from './SimpleI18n.js';
 import {GroupRandomizer} from './GroupRandomizer.js';
+import {AppViewModel} from './AppViewModel.js';
 
 // for exposing API/objects
 window.app = {};
@@ -17,3 +18,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // setup GR
 app.GroupRandomizer = GroupRandomizer;
+
+// view model(s)
+app.viewModel = new AppViewModel();
+ko.applyBindings(app.viewModel);
