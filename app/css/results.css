@@ -10,6 +10,9 @@ table {
 }
 
 /* card table */
+#cards table caption {
+	margin: 1em;
+}
 #cards table {
 	margin: 1cm 1em;
 	border-collapse: collapse;

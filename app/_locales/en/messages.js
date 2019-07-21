@@ -43,4 +43,7 @@ export default {
 	"results.discussion": {
 		"message": "Discussion in groups"
 	},
+	"results.table_caption": {
+		"message": "Numbers below represent your group numbers for todays discussions."
+	},
 }

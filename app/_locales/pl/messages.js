@@ -38,4 +38,7 @@ export default {
 	"results.discussion": {
 		"message": "Dyskusja w\xa0grupach"
 	},
+	"results.table_caption": {
+		"message": "Każdy z poniższych numerów, to kolejny numer Państwa grupy."
+	},
 }
