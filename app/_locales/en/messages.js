@@ -37,4 +37,10 @@ export default {
 	"settings.Generate": {
 		"message": "Generate"
 	},
+	"results.group_number": {
+		"message": "Group number"
+	},
+	"results.discussion": {
+		"message": "Discussion in groups"
+	},
 }

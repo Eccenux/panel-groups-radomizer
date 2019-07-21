@@ -1,0 +1,34 @@
+/* discussion stage counter */
+table {
+	counter-reset: discussion-header-counter;
+}
+.discussion-header {
+	counter-increment: discussion-header-counter;
+}
+.discussion-header::before {
+	content: counter(discussion-header-counter, upper-roman) ". ";
+}
+
+/* card table */
+#cards table {
+	margin: 1cm 1em;
+	border-collapse: collapse;
+}
+#cards table th,
+#cards table td {
+	border-right: 1px solid black;
+	border-left: 1px solid black;
+	text-align: center;
+}
+#cards table th {
+	font-weight: normal;
+}
+#cards table th {
+	font-size: 90%;
+	padding: .5rem;
+}
+#cards table td {
+	font-weight: bold;
+	font-size: 200%;
+	padding: .5rem;
+}

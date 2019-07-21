@@ -32,4 +32,10 @@ export default {
 	"settings.Generate": {
 		"message": "Generuj"
 	},
+	"results.group_number": {
+		"message": "Numer grupy"
+	},
+	"results.discussion": {
+		"message": "Dyskusja w\xa0grupach"
+	},
 }
