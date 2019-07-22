@@ -62,9 +62,23 @@
 	</section>
 
 	<!-- Results summary -->
+	<!-- ko if: results.groupCount -->
 	<section id="results" class="screen-only">
-		<h2 data-i18n-key="results.Results_summary">Results</h2>
+		<h2 data-bind="i18n: 'results.Results_summary'">Results</h2>
+		<p>
+			<span data-bind="i18n: 'results.groupCount'"></span>:
+			<span data-bind="text: results.groupCount"></span>
+		</p>
+		<p>
+			<span data-bind="i18n: 'results.Group_size'"></span>:
+			<span data-bind="i18n: 'results.min'"></span>:
+			<span data-bind="text: results.minGroupSize"></span>,
+			<span data-bind="i18n: 'results.max'"></span>:
+			<span data-bind="text: results.maxGroupSize"></span>
+			(<span data-bind="text: results.groupSizes().join(',')"></span>)
+		</p>
 	</section>
+	<!-- /ko -->
 
 	<!-- Cards for users that can be printed -->
 	<div id="cards">
@@ -74,6 +88,7 @@
 				value="Print" data-i18n-key-attribute="Print:value"
 			></p>
 		</div>
+		<!-- ko if: results.groupCount -->
 		<div class="page">
 			<!-- ko foreach: cards -->
 			<section>
@@ -96,6 +111,7 @@
 			</section>
 			<!-- /ko -->
 		</div>
+		<!-- /ko -->
 	</div>
 
 </body>

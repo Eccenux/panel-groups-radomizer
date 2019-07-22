@@ -41,4 +41,16 @@ export default {
 	"results.table_caption": {
 		"message": "Każdy z poniższych numerów, to kolejny numer Państwa grupy."
 	},
+	"results.groupCount": {
+		"message": "Liczba grup"
+	},
+	"results.Group_size": {
+		"message": "Wielkość grup"
+	},
+	"results.min": {
+		"message": "min"
+	},
+	"results.max": {
+		"message": "max"
+	},
 }

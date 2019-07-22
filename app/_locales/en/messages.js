@@ -46,4 +46,16 @@ export default {
 	"results.table_caption": {
 		"message": "Numbers below represent your group numbers for todays discussions."
 	},
+	"results.groupCount": {
+		"message": "Groups count"
+	},
+	"results.Group_size": {
+		"message": "Group size"
+	},
+	"results.min": {
+		"message": "min"
+	},
+	"results.max": {
+		"message": "max"
+	},
 }

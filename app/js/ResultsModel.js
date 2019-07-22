@@ -19,11 +19,13 @@ class ResultsModel extends SettingsModel {
 		 * ...
 		 */
 		this.groupNumbers = ko.observableArray();
+		this.groupNumbers = ko.observableArray();
 
 		// stats
 		this.groupSizes = ko.observableArray();
 		this.minGroupSize = ko.observable(0);
 		this.maxGroupSize = ko.observable(0);
+		this.groupCount = ko.observable(0);
 	}
 
 	/**
@@ -47,6 +49,7 @@ class ResultsModel extends SettingsModel {
 			this.minGroupSize(0);
 			this.maxGroupSize(0);
 		}
+		this.groupCount(gr.groupCount);		
 
 		//console.log('groupSizes: ', groupSizes.join(','));
 		//gr.results.dump();
