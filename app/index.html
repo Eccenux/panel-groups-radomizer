@@ -88,11 +88,11 @@
 				value="Print" data-i18n-key-attribute="Print:value"
 			></p>
 		</div>
-		<!-- ko if: results.groupCount -->
+		<!-- ko foreach: results.pages -->
 		<div class="page">
-			<!-- ko foreach: results.groupNumbers -->
+			<!-- ko foreach: $data -->
 			<section>
-				<div data-bind="html: $parent.results.openingInformation"></div>
+				<div data-bind="html: $root.results.openingInformation"></div>
 				<table>
 					<caption data-bind="i18n: 'results.table_caption'">Lorem captionus tablus</caption>
 					<tr>

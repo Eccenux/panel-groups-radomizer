@@ -9,7 +9,7 @@ class ResultsModel extends SettingsModel {
 		super();
 
 		/**
-		 * Group numbers for each person.
+		 * Group numbers for each person (divided to pages).
 		 * 
 		 * person index -> group numbers per stage
 		 * 
@@ -18,7 +18,7 @@ class ResultsModel extends SettingsModel {
 		 * 1: 4,1,5,6,6,8,4,1,6,8
 		 * ...
 		 */
-		this.groupNumbers = ko.observableArray();
+		this.pages = ko.observableArray();
 
 		// stats
 		this.groupSizes = ko.observableArray();
@@ -35,8 +35,18 @@ class ResultsModel extends SettingsModel {
 	update(settings, gr) {
 		super.update(settings);
 
-		// copy mapping
-		this.groupNumbers(JSON.parse(JSON.stringify(gr.results.memberGroups)));
+		// create group numbers divded to pages
+		let pageSize = 2;
+		let groupNumbers = JSON.parse(JSON.stringify(gr.results.memberGroups));
+		let pages = new Array(Math.ceil(gr.totalCount / pageSize));
+		for (let index = 0, pageIndex = 0; index < groupNumbers.length; index+=pageSize, pageIndex++) {
+			pages[pageIndex] = [];
+			for (let cardIndex = 0; cardIndex < pageSize && index + cardIndex < groupNumbers.length; cardIndex++) {
+				pages[pageIndex].push(groupNumbers[index + cardIndex]);
+			}
+		}
+		//console.log({groupNumbers, pages});
+		this.pages(pages);
 
 		// calculate sizes
 		let groupSizes = gr.groups.map(group=>group.members.length);
