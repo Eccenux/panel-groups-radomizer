@@ -71,15 +71,21 @@ class GroupRandomizer {
 
 		// groups
 		this.groups = [];
-		let incompleteGroups = this.groupCount * this.groupMax - this.totalCount;
-		let fullGroups = this.groupCount - incompleteGroups;
+		// `largeGroupSize` will be different then groupMax in some cases, mostly for large groups
+		// examples:
+		// # totalCount = 30 and groupMax = 12 => groupCount = 3, and so all group sizes are 10.
+		// # totalCount = 31 and groupMax = 12 => groupCount = 3, and so group sizes are: 11, 10, 10.
+		// # totalCount = 32 and groupMax = 12 => groupCount = 3, and so group sizes are: 11, 11, 10.
+		let largeGroupSize = Math.ceil(this.totalCount / this.groupCount);
+		let smallGroups = this.groupCount * largeGroupSize - this.totalCount;
+		let largeGroups = this.groupCount - smallGroups;
 		// full (maxed-out)
-		for (let index = 0; index < fullGroups; index++) {
-			this.groups.push(new Group(index+1, this.groupMax));
+		for (let index = 0; index < largeGroups; index++) {
+			this.groups.push(new Group(index+1, largeGroupSize));
 		}
 		// incomplete
-		for (let index = fullGroups; index < this.groupCount; index++) {
-			this.groups.push(new Group(index+1, this.groupMax-1));
+		for (let index = largeGroups; index < this.groupCount; index++) {
+			this.groups.push(new Group(index+1, largeGroupSize-1));
 		}
 	}
 
