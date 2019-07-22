@@ -90,21 +90,21 @@
 		</div>
 		<!-- ko if: results.groupCount -->
 		<div class="page">
-			<!-- ko foreach: cards -->
+			<!-- ko foreach: results.groupNumbers -->
 			<section>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean malesuada tincidunt ligula vitae dictum. Phasellus et tellus tortor. In luctus vel nisi eu scelerisque. Quisque eu congue velit. Aenean elementum elit fermentum bibendum rutrum. Pellentesque rhoncus iaculis lacus ultricies vestibulum. Proin sit amet lacus urna.</p>
+				<div data-bind="html: $parent.results.openingInformation"></div>
 				<table>
 					<caption data-bind="i18n: 'results.table_caption'">Lorem captionus tablus</caption>
 					<tr>
 						<th></th>
-						<!-- ko foreach: new Array($parent.stagesCount) -->
+						<!-- ko foreach: $data -->
 						<th class="discussion-header" data-bind="i18n: 'results.discussion'"></th>
 						<!-- /ko -->
 					</tr>
 					<tr>
 						<th data-bind="i18n: 'results.group_number'"></th>
-						<!-- ko foreach: new Array($parent.stagesCount) -->
-						<td>123</td>
+						<!-- ko foreach: $data -->
+						<td data-bind="text: $data"></td>
 						<!-- /ko -->
 					</tr>
 				</table>

@@ -4,10 +4,8 @@ import {GroupRandomizer} from './GroupRandomizer.js';
 
 class AppViewModel {
 	constructor() {
-		this.cards = ko.observableArray([1,2]);
 		this.settings = new SettingsModel();
 		this.results = new ResultsModel();
-		this.stagesCount = 6;
 	}
 
 	generateClick() {

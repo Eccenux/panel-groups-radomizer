@@ -19,7 +19,6 @@ class ResultsModel extends SettingsModel {
 		 * ...
 		 */
 		this.groupNumbers = ko.observableArray();
-		this.groupNumbers = ko.observableArray();
 
 		// stats
 		this.groupSizes = ko.observableArray();

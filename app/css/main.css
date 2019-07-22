@@ -72,7 +72,7 @@ body,table {
 	top: 50%;
 }
 
-/* remove default p margin for first element */
+/* remove default p margin for first element *
 .page section p:first-child {
 	margin-top: 0;
 	padding-top: 0;
