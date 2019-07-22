@@ -89,8 +89,8 @@
 			></p>
 		</div>
 		<!-- ko foreach: results.pages -->
-		<div class="page">
-			<!-- ko foreach: $data -->
+		<div class="page" data-bind="css: {'full-page': full}">
+			<!-- ko foreach: groupNumbers -->
 			<section>
 				<div data-bind="html: $root.results.openingInformation"></div>
 				<table>

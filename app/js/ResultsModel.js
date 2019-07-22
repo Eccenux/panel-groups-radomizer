@@ -40,9 +40,12 @@ class ResultsModel extends SettingsModel {
 		let groupNumbers = JSON.parse(JSON.stringify(gr.results.memberGroups));
 		let pages = new Array(Math.ceil(gr.totalCount / pageSize));
 		for (let index = 0, pageIndex = 0; index < groupNumbers.length; index+=pageSize, pageIndex++) {
-			pages[pageIndex] = [];
+			pages[pageIndex] = {full:true, groupNumbers:[]};
 			for (let cardIndex = 0; cardIndex < pageSize && index + cardIndex < groupNumbers.length; cardIndex++) {
-				pages[pageIndex].push(groupNumbers[index + cardIndex]);
+				pages[pageIndex].groupNumbers.push(groupNumbers[index + cardIndex]);
+			}
+			if (pages[pageIndex].groupNumbers.length !== pageSize) {
+				pages[pageIndex].full = false;
 			}
 		}
 		//console.log({groupNumbers, pages});
