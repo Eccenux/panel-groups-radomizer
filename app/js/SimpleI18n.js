@@ -11,6 +11,10 @@ let messages = {
  * 
  * Note! Run `setupHtml` when HTML is ready.
  * 
+ * Language selection:
+ * 1. From URL hash e.g.: `#lang=en`.
+ * 2. From browser language (`window.navigator.language`).
+ * 
  * To get missing i18n use one of:
  * ```
  * copy(app.i18n.dumpMissing())
@@ -62,15 +66,45 @@ class SimpleI18n {
 	}
 
 	/**
+	 * Get language from URL (hash).
+	 * 
+	 * @returns 'code' or false if lang parameter was not found in hash.
+	 */
+	getUrlLanguage() {
+		if (location.hash.indexOf('lang=')) {
+			let language = '';
+			location.hash.replace(/lang=([a-z]+)/, (a, lang) => {
+				language = lang;
+			});
+			return language.length ? language : false;
+		}
+		return false;
+	}
+	/**
+	 * Get browser's language.
+	 * 
+	 * Typically this is from a browser's language directly or from son lang-changing add-on.
+	 * 
+	 * @returns 'code' (addtions after '-' and '_' are removed; so 'en-US' => 'en').
+	 */
+	getBrowserLanguage() {
+		let language = window.navigator.userLanguage || window.navigator.language;
+		language = language.replace(/[^a-z].+$/, '');
+		return language;
+	}
+
+	/**
 	 * Init language from browser language.
 	 */
 	initLanguage() {
-		let browserLanguage = window.navigator.userLanguage || window.navigator.language;
-		browserLanguage = browserLanguage.replace(/[-_]\w+$/, '');
-		if (this.supported.indexOf(browserLanguage) >= 0) {
-			this.lang = browserLanguage;
+		let language = this.getUrlLanguage();
+		if (typeof language !== 'string') {
+			language = this.getBrowserLanguage();
+		}
+		if (this.supported.indexOf(language) >= 0) {
+			this.lang = language;
 		} else {
-			console.warn(`Unsportted language: ${browserLanguage}`);
+			console.warn(`Unsportted language: ${language}`);
 		}
 	}
 
